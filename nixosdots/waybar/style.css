@@ -1,0 +1,264 @@
+/*oceanic-next0*/
+/*
+@define-color textColor #99c794;
+@define-color bgColor #ab7967;
+@define-color hilight #5FB3B3;
+@define-color shadow #99c794;
+*/
+/*oceanic-next1*/
+/*
+@define-color textColor #99c794;
+@define-color bgColor #343d46;
+@define-color hilight #c0c5Ce;
+@define-color shadow #99c794;
+*/
+/*everforest*/
+/*
+@define-color textColor #d3c6aa;
+@define-color bgColor #2f383e;
+@define-color hilight #d3c6aa;
+@define-color shadow #d3c6aa;
+*/
+/*gruvbox-material-dark-hard*/
+@define-color textColor #ebdbb2;
+@define-color bgColor #202020;
+@define-color hilight #b8bb26;
+@define-color shadow #ebdbb2;
+
+* {
+    font-size: 18px;
+    border-radius: 10px; /* 10=rounded */
+}
+
+window#waybar {
+    /* `otf-font-awesome` is required to be installed for icons */
+    font-family: FontAwesome, monospace; /*default font*/
+    /*font-family: JetBrainsMono Nerd Font Mono;*/
+    background-color: transparent;
+    /*background-color: #1d2021;*/
+    border-bottom: 10px;
+    color: @textColor;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+window#waybar.empty #window {
+    background-color: transparent;
+}
+
+/*
+window#waybar.empty {
+    background-color: transparent;
+}
+window#waybar.solo {
+    background-color: #FFFFFF;
+}
+*/
+
+.modules-right {
+    /* margin: 10px 10px 0 0; */ /* original */
+    margin: 10px 10px 0 0;
+    /* margin: 10px 0 0 0; DOES NOT WORK */
+}
+.modules-center {
+    margin: 10px 0 0 0;
+}
+.modules-left {
+    margin: 10px 0 0 10px;
+}
+
+button {
+    /* Use box-shadow instead of border so the text isn't offset */
+    /*box-shadow: inset 0 -3px @shadow;*/
+    border: none;
+    border-radius: 0;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+/*
+button:hover {
+    background: inherit;
+    box-shadow: inset 0 -3px #ebdbb2;
+} */
+
+#workspaces {
+    background-color: @bgColor;
+}
+
+#workspaces button {
+    /*padding: 0 5px;*/
+    padding: 5px 5px;
+    background-color: @bgColor;
+    color: @textColor;
+    border-radius: 0;
+}
+
+#workspaces button:first-child {
+    /* border-radius: 5px 0 0 5px; */
+    border-radius: 10px 0 0 10px;
+}
+
+#workspaces button:last-child {
+   /* border-radius: 0 5px 5px 0; */
+   border-radius: 0 10px 10px 0;
+}
+
+#workspaces button:hover {
+    /*
+    background-color: @hilight;
+    color: #D8DEE9;
+    */
+}
+
+#workspaces button.focused {
+    background-color: @textColor;
+    /*box-shadow: inset 0 -3px @textColor;*/
+}
+
+#workspaces button.urgent {
+    background-color: @bgColor;
+}
+
+#workspaces button.active {
+    /*background-color: @hilight;*/
+    box-shadow: inset 0 -2px @textColor;
+    color: @hilight;  
+}
+
+#idle_inhibitor,
+#cava,
+#scratchpad,
+#mode,
+#window,
+#clock,
+#battery,
+#backlight,
+#wireplumber,
+#tray,
+#mpris,
+#network,
+#load {
+    padding: 0 5px;
+    /*
+    margin: 2px;
+    padding-left: 12px;
+    padding-right: 12px;
+    */
+    background-color: @bgColor;
+    color: @textColor;
+}
+
+#mode {
+    background-color: #689d6a;
+    color: #282828;
+    box-shadow: inset 0 -3px #ffffff;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+#cava {
+    padding: 0 5px;
+}
+
+#battery.charging, #battery.plugged {
+    background-color: @bgColor;
+    color: @hilight;
+}
+
+@keyframes blink {
+    to {
+        background-color: @bgColor;
+        color: #ebdbb2;
+    }
+}
+
+/* Using steps() instead of linear as a timing function to limit cpu usage */
+#battery.critical:not(.charging) {
+    background-color: #EC5F67;
+    color: @bgColor;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+label:focus {
+    background-color: @hilight;
+}
+
+#wireplumber.muted {
+    background-color: #458588;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}
+
+#mpris.playing {
+    background-color: #d79921;
+    color: #282828;
+}
+
+#tray menu {
+    font-family: sans-serif;
+}
+
+#scratchpad.empty {
+    background: transparent;
+}
+
+#cpu {
+    background-color: @bgColor;
+    color: @textColor;
+    /*box-shadow: inset 0 -3px @shadow;*/
+}
+
+#memory {
+    background-color: @bgColor;
+    color: @textColor;
+    /*box-shadow: inset 0 -3px @shadow;*/
+}
+
+#pulseaudio {
+    background-color: @bgColor;
+    color: @textColor;
+    /*box-shadow: inset 0 -3px @shadow;*/
+}
+
+#network {
+    background-color: @bgColor;
+    border-radius: 10px 10px 10px 10px;
+    /*border-radius: 8px 8px 8px 8px;*/
+    color: @textColor;
+    /* box-shadow: inset 0 -3px @shadow;*/
+}
+
+#network.disconnected {
+    background-color: @bgColor;
+}
+
+#temperature {
+    background-color: @bgColor;
+    /* box-shadow: inset 0 -3px @shadow;*/
+}
+
+#temperature.critical {
+    background-color: #eb4d4b;
+}
